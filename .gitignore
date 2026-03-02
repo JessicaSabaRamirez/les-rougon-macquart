@@ -32,6 +32,9 @@ Thumbs.db
 node_modules/
 package-lock.json
 
+# README (kept local only)
+README.md
+
 # Scratch files from development sessions
 assommoir.json
 gervaise.json
