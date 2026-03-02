@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}{{ novel.title_fr }} — Les Rougon-Macquart{% endblock %}
+{% block content %}
+<div class="page-container animate-in">
+  <div style="margin-bottom:1rem;">
+    <a href="/novels" style="font-family:var(--font-sc);font-size:0.75rem;letter-spacing:.1em;color:var(--ink-light);">← Novels</a>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:2.5rem;align-items:start;">
+    <div>
+      <p style="font-family:var(--font-sc);font-size:0.8rem;letter-spacing:.15em;color:var(--gold);">
+        No. {{ novel.number }} · {{ novel.year }}
+      </p>
+      <h1 class="page-title" style="margin-bottom:.2rem;">{{ novel.title_fr }}</h1>
+      <p style="font-family:var(--font-body);font-style:italic;font-size:1.1rem;color:var(--ink-faded);margin-bottom:1.5rem;">
+        {{ novel.title_en }}
+      </p>
+
+      <div style="font-size:1rem;line-height:1.75;margin-bottom:1.5rem;">
+        <span class="lang-text-en">{{ novel.summary_en or '' }}</span>
+        <span class="lang-text-fr" hidden>{{ novel.summary_fr or novel.summary_en or '' }}</span>
+      </div>
+
+      {% if novel.setting %}
+      <p style="font-size:.88rem;font-style:italic;color:var(--ink-light);">
+        <strong style="font-family:var(--font-sc);font-size:.75rem;letter-spacing:.08em;">Setting:</strong>
+        {{ novel.setting }}
+      </p>
+      {% endif %}
+    </div>
+
+    <div class="character-sidebar">
+      {% if appearances %}
+      <h2 class="section-heading" data-en="Characters" data-fr="Personnages">Characters</h2>
+      {% set majors = appearances | selectattr('role', 'equalto', 'major') | list %}
+      {% set minors = appearances | selectattr('role', 'equalto', 'minor') | list %}
+
+      {% if majors %}
+      <p style="font-family:var(--font-sc);font-size:.7rem;letter-spacing:.1em;color:var(--ink-light);margin-bottom:.5rem;"
+         data-en="Major" data-fr="Principaux">Major</p>
+      {% for app in majors %}
+      <a href="/characters/{{ app.character.slug }}" class="novel-pill" style="display:block;margin:.2rem 0;">
+        {{ app.character.name }}
+      </a>
+      {% endfor %}
+      {% endif %}
+
+      {% if minors %}
+      <p style="font-family:var(--font-sc);font-size:.7rem;letter-spacing:.1em;color:var(--ink-light);margin:.9rem 0 .5rem;"
+         data-en="Minor" data-fr="Secondaires">Minor</p>
+      {% for app in minors %}
+      <a href="/characters/{{ app.character.slug }}" class="novel-pill" style="display:block;margin:.2rem 0;">
+        {{ app.character.name }}
+      </a>
+      {% endfor %}
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+window.treeSetLang = function(lang) {
+  document.querySelectorAll('.lang-text-en').forEach(el => el.hidden = (lang === 'fr'));
+  document.querySelectorAll('.lang-text-fr').forEach(el => el.hidden = (lang !== 'fr'));
+};
+(function() {
+  const lang = localStorage.getItem('rm_lang') || 'en';
+  if (lang === 'fr') {
+    document.querySelectorAll('.lang-text-en').forEach(el => el.hidden = true);
+    document.querySelectorAll('.lang-text-fr').forEach(el => el.hidden = false);
+  }
+})();
+</script>
+{% endblock %}

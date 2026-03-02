@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Search — Les Rougon-Macquart{% endblock %}
+{% block content %}
+<div class="page-container animate-in">
+  <div class="page-header">
+    <h1 class="page-title" data-en="Search" data-fr="Recherche">Search</h1>
+  </div>
+
+  <form class="search-page-form" method="get" action="/search">
+    <input class="search-page-input" type="text" name="q" value="{{ q }}"
+           placeholder="Search characters, novels, places…" autofocus>
+    <button class="search-btn" type="submit" data-en="Search" data-fr="Rechercher">Search</button>
+  </form>
+
+  {% if q %}
+    {% if not results.characters and not results.novels and not results.locations %}
+    <p style="font-style:italic;color:var(--ink-faded);">
+      No results found for "<strong>{{ q }}</strong>".
+    </p>
+    {% endif %}
+
+    {% if results.characters %}
+    <h2 class="search-section-title" data-en="Characters" data-fr="Personnages">Characters</h2>
+    <div class="card-grid">
+      {% for c in results.characters %}
+      <a href="/characters/{{ c.slug }}" class="card" style="text-decoration:none;color:inherit;">
+        <span class="branch-badge {{ c.branch or 'other' }}">{{ c.branch | capitalize if c.branch else 'Other' }}</span>
+        <div class="card-title">{{ c.name }}</div>
+        <div class="card-sub">{{ c.occupation or '' }}</div>
+        <p class="card-text">{{ (c.description_en or '')[:120] }}{% if c.description_en and c.description_en|length > 120 %}…{% endif %}</p>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if results.novels %}
+    <h2 class="search-section-title" data-en="Novels" data-fr="Romans">Novels</h2>
+    <div class="novel-list">
+      {% for n in results.novels %}
+      <a href="/novels/{{ n.slug }}" class="novel-row">
+        <div class="novel-number">{{ n.number }}</div>
+        <div class="novel-titles">
+          <div class="novel-title-fr">{{ n.title_fr }}</div>
+          <div class="novel-title-en">{{ n.title_en }}</div>
+        </div>
+        <div class="novel-year">{{ n.year }}</div>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if results.locations %}
+    <h2 class="search-section-title" data-en="Places" data-fr="Lieux">Places</h2>
+    <div class="card-grid">
+      {% for l in results.locations %}
+      <a href="/locations/{{ l.slug }}" class="card" style="text-decoration:none;color:inherit;">
+        <div class="card-sub">{{ l.location_type or '' }}</div>
+        <div class="card-title">{{ l.name }}</div>
+        <p class="card-text">{{ (l.description_en or '')[:120] }}{% if l.description_en and l.description_en|length > 120 %}…{% endif %}</p>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

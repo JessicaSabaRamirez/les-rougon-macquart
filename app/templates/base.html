@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Les Rougon-Macquart{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cormorant+SC:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <link rel="stylesheet" href="/static/css/main.css">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<!-- Parchment noise overlay -->
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="site-brand">
+      <span class="brand-title">Les Rougon-Macquart</span>
+      <span class="brand-sub" data-en="A Companion" data-fr="Un Guide">A Companion</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="/" class="nav-link {% if request.url.path == '/' %}active{% endif %}"
+         data-en="Genealogy" data-fr="Généalogie">Genealogy</a>
+      <a href="/characters" class="nav-link {% if '/characters' in request.url.path %}active{% endif %}"
+         data-en="Characters" data-fr="Personnages">Characters</a>
+      <a href="/novels" class="nav-link {% if '/novels' in request.url.path %}active{% endif %}"
+         data-en="Novels" data-fr="Romans">Novels</a>
+      <a href="/locations" class="nav-link {% if '/locations' in request.url.path %}active{% endif %}"
+         data-en="Atlas" data-fr="Atlas">Atlas</a>
+      <a href="/timeline" class="nav-link {% if '/timeline' in request.url.path %}active{% endif %}"
+         data-en="Timeline" data-fr="Chronologie">Timeline</a>
+      <a href="/quotes" class="nav-link {% if '/quotes' in request.url.path %}active{% endif %}"
+         data-en="Quotes" data-fr="Citations">Quotes</a>
+    </nav>
+
+    <div class="header-actions">
+      <!-- Search -->
+      <div class="search-container">
+        <input type="text" class="search-input" id="globalSearch"
+               placeholder="Search…" autocomplete="off"
+               data-en-placeholder="Search…" data-fr-placeholder="Rechercher…"
+               aria-label="Search characters, novels, places">
+        <div class="search-dropdown" id="searchDropdown" hidden></div>
+      </div>
+
+      <!-- Language toggle -->
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button class="lang-btn active" data-lang-btn="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang-btn="fr" onclick="setLang('fr')">FR</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="site-main">
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="footer-text" data-en="Les Rougon-Macquart · Émile Zola · 1871–1893 · Personal reading companion"
+          data-fr="Les Rougon-Macquart · Émile Zola · 1871–1893 · Guide de lecture personnel">
+      Les Rougon-Macquart · Émile Zola · 1871–1893 · Personal reading companion
+    </span>
+  </div>
+</footer>
+
+<script src="/static/js/main.js"></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

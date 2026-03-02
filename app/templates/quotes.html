@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Quotes — Les Rougon-Macquart{% endblock %}
+
+{% block content %}
+<div class="page-container animate-in">
+  <div class="page-header">
+    <h1 class="page-title" data-en="Quotes" data-fr="Citations">Quotes</h1>
+    <p class="page-subtitle"
+       data-en="Passages from across the twenty novels"
+       data-fr="Extraits des vingt romans">
+      Passages from across the twenty novels
+    </p>
+  </div>
+
+  <!-- Novel filter -->
+  <div class="char-filters" style="flex-wrap:wrap;" role="group" aria-label="Filter by novel">
+    <a href="/quotes" class="filter-btn {% if not active_novel %}active{% endif %}"
+       data-en="All novels" data-fr="Tous les romans">All novels</a>
+    {% for novel in novels %}
+    <a href="/quotes?novel={{ novel.slug }}"
+       class="filter-btn {% if active_novel == novel.slug %}active{% endif %}">
+      <span class="lang-text-en">{{ novel.title_en }}</span>
+      <span class="lang-text-fr" hidden>{{ novel.title_fr }}</span>
+    </a>
+    {% endfor %}
+  </div>
+
+  {% if quotes %}
+  <div class="quote-grid" id="quoteGrid">
+    {% for quote in quotes %}
+    <div class="quote-card animate-in">
+      <blockquote class="quote-text">
+        <span class="lang-text-en">"{{ quote.text_en or quote.text_fr }}"</span>
+        <span class="lang-text-fr" hidden>"{{ quote.text_fr }}"</span>
+      </blockquote>
+      <div class="quote-footer">
+        <div class="quote-source">
+          {% if quote.character %}
+          <a href="/characters/{{ quote.character.slug }}" class="quote-character">
+            {{ quote.character.name }}
+          </a>
+          <span class="quote-sep">·</span>
+          {% endif %}
+          {% if quote.novel %}
+          <a href="/novels/{{ quote.novel.slug }}" class="quote-novel">
+            <span class="lang-text-en">{{ quote.novel.title_en }}</span>
+            <span class="lang-text-fr" hidden>{{ quote.novel.title_fr }}</span>
+          </a>
+          {% endif %}
+        </div>
+        {% if quote.context %}
+        <p class="quote-context">{{ quote.context }}</p>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p style="font-style:italic;color:var(--ink-light);margin-top:2rem;">
+    <span data-en="No quotes found for this selection."
+          data-fr="Aucune citation trouvée pour cette sélection.">
+      No quotes found for this selection.
+    </span>
+  </p>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+window.treeSetLang = function(lang) {
+  document.querySelectorAll('.lang-text-en').forEach(el => el.hidden = (lang === 'fr'));
+  document.querySelectorAll('.lang-text-fr').forEach(el => el.hidden = (lang !== 'fr'));
+};
+(function() {
+  const lang = localStorage.getItem('rm_lang') || 'en';
+  if (lang === 'fr') {
+    document.querySelectorAll('.lang-text-en').forEach(el => el.hidden = true);
+    document.querySelectorAll('.lang-text-fr').forEach(el => el.hidden = false);
+  }
+})();
+</script>
+{% endblock %}

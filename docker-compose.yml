@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      # Mount source for live reload in dev
+      - ./app:/app/app
+      - ./data:/app/data
+    environment:
+      - DB_PATH=data/rougon_macquart.db
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload

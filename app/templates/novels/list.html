@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Novels — Les Rougon-Macquart{% endblock %}
+{% block content %}
+<div class="page-container animate-in">
+  <div class="page-header">
+    <h1 class="page-title" data-en="The Twenty Novels" data-fr="Les Vingt Romans">The Twenty Novels</h1>
+    <p class="page-subtitle" data-en="In order of publication, 1871–1893" data-fr="Dans l'ordre de publication, 1871–1893">
+      In order of publication, 1871–1893
+    </p>
+  </div>
+  <div class="novel-list">
+    {% for novel in novels %}
+    <a href="/novels/{{ novel.slug }}" class="novel-row">
+      <div class="novel-number">{{ novel.number }}</div>
+      <div class="novel-titles">
+        <div class="novel-title-fr">{{ novel.title_fr }}</div>
+        <div class="novel-title-en">{{ novel.title_en }}</div>
+      </div>
+      <div class="novel-year">{{ novel.year }}</div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

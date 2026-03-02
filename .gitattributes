@@ -1,0 +1,10 @@
+# Normalize line endings to LF in the repository
+* text=auto eol=lf
+
+# Force binary for SQLite DB
+*.db binary
+*.db-wal binary
+*.db-shm binary
+
+# SVG is text
+*.svg text eol=lf

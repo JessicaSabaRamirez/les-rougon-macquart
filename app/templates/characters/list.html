@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Characters — Les Rougon-Macquart{% endblock %}
+
+{% block content %}
+<div class="page-container animate-in">
+  <div class="page-header">
+    <h1 class="page-title" data-en="Characters" data-fr="Personnages">Characters</h1>
+    <p class="page-subtitle" data-en="The men and women of the Rougon-Macquart cycle"
+       data-fr="Les hommes et les femmes du cycle des Rougon-Macquart">
+      The men and women of the Rougon-Macquart cycle
+    </p>
+  </div>
+
+  <!-- Branch filter -->
+  <div class="char-filters" role="group" aria-label="Filter by family branch">
+    <button class="filter-btn active" data-filter="all"
+            data-en="All" data-fr="Tous">All</button>
+    <button class="filter-btn" data-filter="rougon"
+            data-en="Rougon" data-fr="Rougon">Rougon</button>
+    <button class="filter-btn" data-filter="macquart"
+            data-en="Macquart" data-fr="Macquart">Macquart</button>
+    <button class="filter-btn" data-filter="mouret"
+            data-en="Mouret" data-fr="Mouret">Mouret</button>
+    <button class="filter-btn" data-filter="other"
+            data-en="Other" data-fr="Autres">Other</button>
+  </div>
+
+  <div class="card-grid" id="charGrid">
+    {% for character in characters %}
+    <a href="/characters/{{ character.slug }}" class="card char-card"
+       data-branch="{{ character.branch or 'other' }}"
+       style="text-decoration:none;color:inherit;">
+      {% if character.image_url %}
+      <div class="card-portrait">
+        <img src="{{ character.image_url }}" alt="{{ character.name }}"
+             loading="lazy">
+      </div>
+      {% endif %}
+      <div>
+        <span class="branch-badge {{ character.branch or 'other' }}">
+          {{ character.branch | capitalize if character.branch else 'Other' }}
+        </span>
+      </div>
+      <div class="card-title">{{ character.name }}</div>
+      <div class="card-sub">{{ character.occupation or '' }}</div>
+      <p class="card-text">
+        {{ (character.description_en or '')[:160] }}{% if character.description_en and character.description_en|length > 160 %}…{% endif %}
+      </p>
+      <span class="card-link">View profile →</span>
+    </a>
+    {% endfor %}
+  </div>
+
+  <p class="char-count" id="charCount"></p>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+const filterBtns = document.querySelectorAll('.filter-btn');
+const cards      = document.querySelectorAll('.char-card');
+const countEl    = document.getElementById('charCount');
+
+function applyFilter(filter) {
+  let visible = 0;
+  cards.forEach(card => {
+    const show = filter === 'all' || card.dataset.branch === filter;
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  filterBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.filter === filter));
+  countEl.textContent = visible === cards.length ? '' : `${visible} of ${cards.length} characters`;
+}
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+});
+</script>
+{% endblock %}

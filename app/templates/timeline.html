@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Timeline — Les Rougon-Macquart{% endblock %}
+
+{% block content %}
+<div class="page-container animate-in">
+  <div class="page-header">
+    <h1 class="page-title" data-en="Timeline" data-fr="Chronologie">Timeline</h1>
+    <p class="page-subtitle"
+       data-en="Historical events and key moments across the cycle, 1851–1893"
+       data-fr="Événements historiques et moments clés du cycle, 1851–1893">
+      Historical events and key moments across the cycle, 1851–1893
+    </p>
+  </div>
+
+  <!-- Type filter -->
+  <div class="char-filters" role="group" aria-label="Filter by event type">
+    <button class="filter-btn active" data-filter="all"
+            data-en="All" data-fr="Tous">All</button>
+    <button class="filter-btn" data-filter="historical"
+            data-en="Historical" data-fr="Historique">Historical</button>
+    <button class="filter-btn" data-filter="political"
+            data-en="Political" data-fr="Politique">Political</button>
+    <button class="filter-btn" data-filter="personal"
+            data-en="Personal" data-fr="Fictif">Personal</button>
+  </div>
+
+  <div class="timeline-list" id="timelineList">
+    {% for event in events %}
+    <div class="timeline-event" data-type="{{ event.event_type }}">
+      <div class="timeline-spine">
+        <div class="timeline-dot event-{{ event.event_type }}"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-body">
+        <div class="timeline-meta">
+          <span class="timeline-year">{{ event.year }}</span>
+          {% if event.date_approx and event.date_approx != event.year|string %}
+          <span class="timeline-date">{{ event.date_approx }}</span>
+          {% endif %}
+          <span class="timeline-type-badge event-{{ event.event_type }}">
+            {%- if event.event_type == 'historical' -%}
+              <span data-en="Historical" data-fr="Historique">Historical</span>
+            {%- elif event.event_type == 'political' -%}
+              <span data-en="Political" data-fr="Politique">Political</span>
+            {%- else -%}
+              <span data-en="Personal" data-fr="Fictif">Personal</span>
+            {%- endif -%}
+          </span>
+          {% if event.novel %}
+          <a href="/novels/{{ event.novel.slug }}" class="timeline-novel-link">
+            <span class="lang-text-en">{{ event.novel.title_en }}</span>
+            <span class="lang-text-fr" hidden>{{ event.novel.title_fr }}</span>
+          </a>
+          {% endif %}
+        </div>
+        <h2 class="timeline-title">
+          <span class="lang-text-en">{{ event.title_en }}</span>
+          <span class="lang-text-fr" hidden>{{ event.title_fr or event.title_en }}</span>
+        </h2>
+        <p class="timeline-description">
+          <span class="lang-text-en">{{ event.description_en or '' }}</span>
+          <span class="lang-text-fr" hidden>{{ event.description_fr or event.description_en or '' }}</span>
+        </p>
+        {% if event.characters %}
+        <div class="timeline-chars">
+          {% for ec in event.characters %}
+          <a href="/characters/{{ ec.character.slug }}" class="timeline-char-pill">
+            {{ ec.character.name }}
+          </a>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Filter by event type
+const filterBtns = document.querySelectorAll('.filter-btn');
+const events     = document.querySelectorAll('.timeline-event');
+
+function applyFilter(filter) {
+  events.forEach(ev => {
+    ev.style.display = (filter === 'all' || ev.dataset.type === filter) ? '' : 'none';
+  });
+  filterBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.filter === filter));
+}
+
+filterBtns.forEach(btn => btn.addEventListener('click', () => applyFilter(btn.dataset.filter)));
+
+// EN/FR toggle
+window.treeSetLang = function(lang) {
+  document.querySelectorAll('.lang-text-en').forEach(el => el.hidden = (lang === 'fr'));
+  document.querySelectorAll('.lang-text-fr').forEach(el => el.hidden = (lang !== 'fr'));
+};
+(function() {
+  const lang = localStorage.getItem('rm_lang') || 'en';
+  if (lang === 'fr') {
+    document.querySelectorAll('.lang-text-en').forEach(el => el.hidden = true);
+    document.querySelectorAll('.lang-text-fr').forEach(el => el.hidden = false);
+  }
+})();
+</script>
+{% endblock %}

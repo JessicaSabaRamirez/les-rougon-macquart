@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}{{ character.name }} — Les Rougon-Macquart{% endblock %}
+
+{% block content %}
+<div class="page-container animate-in">
+
+  <div style="margin-bottom:1rem;">
+    <a href="/characters" style="font-family:var(--font-sc);font-size:0.75rem;letter-spacing:.1em;color:var(--ink-light);">
+      ← Characters
+    </a>
+  </div>
+
+  <div class="character-layout">
+    <!-- Main content -->
+    <div class="character-main">
+      <span class="branch-badge {{ character.branch or 'other' }}">
+        {{ character.branch | capitalize if character.branch else 'Other' }} branch
+      </span>
+      {% if character.birth_name and character.birth_name != character.name %}
+      <p style="font-size:0.85rem;font-style:italic;color:var(--ink-light);margin-bottom:0.2rem;">
+        born {{ character.birth_name }}
+      </p>
+      {% endif %}
+      <h1 class="character-name">{{ character.name }}</h1>
+      <p class="character-occupation">{{ character.occupation or '' }}</p>
+
+      <!-- Description (EN/FR switchable) -->
+      <div class="character-description">
+        <span class="lang-text-en">{{ character.description_en or '' }}</span>
+        <span class="lang-text-fr" hidden>{{ character.description_fr or character.description_en or '' }}</span>
+      </div>
+
+      {% if character.physical_en %}
+      <div class="character-physical">
+        <span class="lang-text-en">{{ character.physical_en }}</span>
+        <span class="lang-text-fr" hidden>{{ character.physical_fr or character.physical_en }}</span>
+      </div>
+      {% endif %}
+
+      <!-- Relations -->
+      {% if relations %}
+      <h2 class="section-heading" data-en="Family & Relationships" data-fr="Famille et relations">
+        Family & Relationships
+      </h2>
+      <ul class="relation-list">
+        {% for rel in relations %}
+        <li class="relation-item">
+          <span class="relation-type relation-{{ rel.relation_type }}">
+            {%- if rel.relation_type == 'parent' -%}Parent
+            {%- elif rel.relation_type == 'child' -%}Child
+            {%- elif rel.relation_type == 'sibling' -%}Sibling
+            {%- elif rel.relation_type == 'spouse' -%}Spouse
+            {%- elif rel.relation_type == 'union' -%}Partner
+            {%- elif rel.relation_type == 'lover' -%}Lover
+            {%- elif rel.relation_type == 'grandchild' -%}Grandchild
+            {%- elif rel.relation_type == 'grandparent' -%}Grandparent
+            {%- elif rel.relation_type == 'sibling-in-law' -%}In-law
+            {%- else -%}{{ rel.relation_type | capitalize }}
+            {%- endif -%}
+          </span>
+          <a href="/characters/{{ rel.character.slug }}">{{ rel.character.name }}</a>
+          {% if rel.description %}
+          <span style="font-size:0.82rem;font-style:italic;color:var(--ink-faded);">— {{ rel.description }}</span>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <!-- Sidebar -->
+    <div class="character-sidebar">
+      {% if character.image_url %}
+      <img src="{{ character.image_url }}" alt="{{ character.name }}"
+           style="width:100%;border-radius:2px;margin-bottom:1rem;border:1px solid rgba(184,146,42,.3);">
+      {% if character.image_credit %}
+      <p style="font-size:0.7rem;font-style:italic;color:var(--ink-light);margin-bottom:1rem;">{{ character.image_credit }}</p>
+      {% endif %}
+      {% endif %}
+
+      <!-- Novels -->
+      {% if appearances %}
+      <h2 class="section-heading" data-en="Appears In" data-fr="Apparaît dans">Appears In</h2>
+      <div style="margin-bottom:1.2rem;">
+        {% for app in appearances %}
+        <a href="/novels/{{ app.novel.slug }}" class="novel-pill">
+          <span class="lang-text-en">{{ app.novel.title_en }}</span>
+          <span class="lang-text-fr" hidden>{{ app.novel.title_fr }}</span>
+          <span class="pill-role">{{ app.role }}</span>
+        </a>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Generation -->
+      <h2 class="section-heading" data-en="Details" data-fr="Détails">Details</h2>
+      <dl style="font-size:0.88rem;line-height:1.8;">
+        <dt style="font-family:var(--font-sc);font-size:0.7rem;letter-spacing:.08em;color:var(--ink-light);"
+            data-en="Branch" data-fr="Branche">Branch</dt>
+        <dd>{{ character.branch | capitalize if character.branch else '—' }}</dd>
+        <dt style="font-family:var(--font-sc);font-size:0.7rem;letter-spacing:.08em;color:var(--ink-light);"
+            data-en="Generation" data-fr="Génération">Generation</dt>
+        <dd>{{ 'I' if character.generation == 0 else ('II' if character.generation == 1 else ('III' if character.generation == 2 else 'IV')) }}</dd>
+      </dl>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Hook into lang switch to toggle EN/FR description
+const origSetLang = window.treeSetLang;
+window.treeSetLang = function(lang) {
+  if (origSetLang) origSetLang(lang);
+  document.querySelectorAll('.lang-text-en').forEach(el => el.hidden = (lang === 'fr'));
+  document.querySelectorAll('.lang-text-fr').forEach(el => el.hidden = (lang !== 'fr'));
+};
+
+// Apply current lang on load
+(function() {
+  const lang = localStorage.getItem('rm_lang') || 'en';
+  if (lang === 'fr') {
+    document.querySelectorAll('.lang-text-en').forEach(el => el.hidden = true);
+    document.querySelectorAll('.lang-text-fr').forEach(el => el.hidden = false);
+  }
+})();
+</script>
+{% endblock %}

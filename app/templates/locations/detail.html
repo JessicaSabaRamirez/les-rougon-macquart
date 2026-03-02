@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}{{ location.name }} — Les Rougon-Macquart{% endblock %}
+{% block content %}
+<div class="page-container animate-in">
+  <div style="margin-bottom:1rem;">
+    <a href="/locations" style="font-family:var(--font-sc);font-size:0.75rem;letter-spacing:.1em;color:var(--ink-light);">← Atlas</a>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 280px;gap:2.5rem;align-items:start;">
+    <div>
+      <p style="font-family:var(--font-sc);font-size:.8rem;letter-spacing:.15em;color:var(--gold);">
+        {{ location.location_type or '' }}
+      </p>
+      <h1 class="page-title" style="margin-bottom:1.2rem;">{{ location.name }}</h1>
+      <div style="font-size:1rem;line-height:1.75;">
+        <span class="lang-text-en">{{ location.description_en or '' }}</span>
+        <span class="lang-text-fr" hidden>{{ location.description_fr or location.description_en or '' }}</span>
+      </div>
+    </div>
+
+    {% if novels %}
+    <div class="character-sidebar">
+      <h2 class="section-heading" data-en="Novels set here" data-fr="Romans situés ici">Novels set here</h2>
+      {% for novel in novels %}
+      <a href="/novels/{{ novel.slug }}" class="novel-pill" style="display:block;margin:.3rem 0;">
+        <span style="font-family:var(--font-sc);font-size:.65rem;color:var(--gold);margin-right:.3rem;">
+          {{ novel.number }}.
+        </span>
+        <span class="lang-text-en">{{ novel.title_en }}</span>
+        <span class="lang-text-fr" hidden>{{ novel.title_fr }}</span>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+window.treeSetLang = function(lang) {
+  document.querySelectorAll('.lang-text-en').forEach(el => el.hidden = (lang === 'fr'));
+  document.querySelectorAll('.lang-text-fr').forEach(el => el.hidden = (lang !== 'fr'));
+};
+(function() {
+  const lang = localStorage.getItem('rm_lang') || 'en';
+  if (lang === 'fr') {
+    document.querySelectorAll('.lang-text-en').forEach(el => el.hidden = true);
+    document.querySelectorAll('.lang-text-fr').forEach(el => el.hidden = false);
+  }
+})();
+</script>
+{% endblock %}

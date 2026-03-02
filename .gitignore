@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Test
+.pytest_cache/
+test_rm.db
+
+# SQLite WAL files (the .db itself is checked in since it's built from seed)
+data/*.db-wal
+data/*.db-shm
+
+# Environment
+.env
+.env.*
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Node (spurious, not used by the app)
+node_modules/
+package-lock.json
+
+# Scratch files from development sessions
+assommoir.json
+gervaise.json
+rougon.json
+nana_novel.json
+search_results.json
+bonheur.json
+nana_roman.json
+germinal_meta.json
+steinlen.json
+bete_humaine.json

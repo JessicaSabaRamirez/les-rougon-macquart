@@ -1,0 +1,40 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# Test artifacts
+tests/
+test_rm.db
+
+# Existing database (rebuilt at image build time by seed.py)
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# Node (spurious, not used by the app)
+node_modules/
+package.json
+package-lock.json
+
+# Scratch JSON files from development
+*.json
+
+# Git
+.git/
+.gitignore
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.yml
+.dockerignore
+
+# Docs
+README.md
