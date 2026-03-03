@@ -30,6 +30,13 @@
     </div>
 
     <div class="character-sidebar">
+      {% if novel.image_url %}
+      <img src="{{ novel.image_url }}" alt="{{ novel.title_fr }}"
+           style="width:100%;border-radius:2px;margin-bottom:1rem;border:1px solid rgba(184,146,42,.3);">
+      {% if novel.image_credit %}
+      <p style="font-size:0.7rem;font-style:italic;color:var(--ink-light);margin-bottom:1rem;">{{ novel.image_credit }}</p>
+      {% endif %}
+      {% endif %}
       {% if appearances %}
       <h2 class="section-heading" data-en="Characters" data-fr="Personnages">Characters</h2>
       {% set majors = appearances | selectattr('role', 'equalto', 'major') | list %}

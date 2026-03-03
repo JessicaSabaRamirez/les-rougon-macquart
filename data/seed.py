@@ -31,8 +31,8 @@ def run():
     # ── NOVELS ──────────────────────────────────────────────────────────────
     novels_data = [
         (1,  "la-fortune-des-rougon",      "La Fortune des Rougon",           "The Fortune of the Rougons",          1871, "Plassans",
-         "The origins of the Rougon-Macquart dynasty. During the coup of 2 December 1851, Pierre Rougon seizes political power in the provincial town of Plassans, while young lovers Silvère and Miette die for the Republican cause.",
-         "Les origines de la famille Rougon-Macquart. Lors du coup d'État du 2 décembre 1851, Pierre Rougon s'empare du pouvoir à Plassans."),
+         "The founding novel of the cycle, set in the fictional Provençal town of Plassans during the coup d'état of 2 December 1851. Two narratives run in counterpoint: the young lovers Silvère Mouret and Miette Chantegreil join a column of Republican insurgents marching to resist the coup, while Pierre and Félicité Rougon scheme in their 'yellow drawing room' to seize local power by backing the winning side. Zola interrupts the action to trace the dynasty's origins — the neurotic matriarch Adélaïde Fouque, whose marriage to Rougon and passion for the smuggler Macquart create the two great branches of the family, and whose hereditary instability (la fêlure — the crack) will haunt every descendant across all twenty novels. Miette, thirteen years old, carries the red flag at the head of the insurgent column, convinced she is bearing the Virgin's banner in a Corpus Christi procession. Silvère is executed by a gendarme beside the tombstone where he and Miette used to meet. The Rougons triumph; the Republic dies with its children. The cycle's moral architecture is set in its closing pages: Second Empire respectability is built on fraud, betrayal, and the blood of those who actually believed in something.",
+         "Roman fondateur du cycle, se déroulant à Plassans lors du coup d'État du 2 décembre 1851. Silvère Mouret et Miette Chantegreil rejoignent les insurgés républicains tandis que Pierre et Félicité Rougon manœuvrent dans leur salon jaune pour s'emparer du pouvoir. Zola retrace les origines de la dynastie : la matriarche névrotique Adélaïde Fouque, dont la fêlure héréditaire hantera tous ses descendants. Miette, treize ans, porte le drapeau rouge en croyant marcher à une procession de la Fête-Dieu. Silvère est fusillé. Les Rougon triomphent."),
         (2,  "la-curee",                   "La Curée",                        "The Kill",                            1871, "Paris",
          "Aristide Saccard grows rich on the speculative fever of Haussmann's reconstruction of Paris. His second wife Renée enters a scandalous affair with his own son Maxime.",
          "Aristide Saccard s'enrichit grâce à la spéculation immobilière. Sa femme Renée entame une liaison scandaleuse avec son beau-fils Maxime."),
@@ -102,6 +102,10 @@ def run():
         db.flush()
         novels[row[1]] = n
 
+    # Novel illustrations (local static files)
+    novels["la-fortune-des-rougon"].image_url = "/static/images/novels/la-fortune-des-rougon.png"
+    novels["la-fortune-des-rougon"].image_credit = "Engraving from the Vizetelly English translation (1886) — Public domain"
+
     # ── CHARACTERS ──────────────────────────────────────────────────────────
     # Dict keys: slug, name, birth_name, occupation, branch, generation,
     #            description_en, description_fr, physical_en,
@@ -115,9 +119,11 @@ def run():
             "occupation": "Matriarch / 'Tante Dide'",
             "branch": "macquart",
             "generation": 0,
-            "description_en": "The neurotic, visionary matriarch of the entire dynasty. Her marriage to the peasant Rougon and her passionate liaison with the smuggler Macquart create the two branches of the family. Her tainted blood — a nervous instability bordering on madness — runs through every descendant. She ends her days in an asylum at Les Tulettes, outliving almost all of them.",
-            "description_fr": "La matriarche névrotique et visionnaire de toute la dynastie. Son mariage avec Rougon et sa liaison avec Macquart créent les deux branches familiales. Elle finit ses jours à l'asile des Tulettes.",
-            "physical_en": "Gaunt, pallid, with wide staring eyes and a fixed, otherworldly expression — the family's mark of nervous instability made visible.",
+            "image_url": "/static/images/characters/adelaide.jpg",
+            "image_credit": "Théodore Géricault, 'La monomane de l'envie' (c. 1820) — Public domain",
+            "description_en": "The neurotic, visionary matriarch of the entire dynasty, born in 1768. Her marriage to the peasant Rougon produces one legitimate son, Pierre; her passionate liaison with the smuggler Macquart produces Antoine and Ursule, creating the two great branches of the family. What Zola calls la fêlure — the crack — runs from Adélaïde through every one of her descendants: a hereditary nervous instability that manifests as madness in some, alcoholism in others, violent passion or artistic obsession in others still. She raises her grandson Silvère after his mother Ursule's death, and it is she who witnesses his execution during the 1851 coup — raving 'le prix du sang!' (the price of blood!) as he is shot. She is immediately committed to the lunatic asylum at Les Tulettes near Plassans, where she lives on for more than twenty years in a deepening stupor, visited occasionally by Dr Pascal and others. She is still alive in Le Docteur Pascal, over a hundred years old, a hollow-eyed relic of the dynasty's founding sin.",
+            "description_fr": "Matriarche névrotique née en 1768. Son mariage avec Rougon et sa liaison avec Macquart créent les deux branches familiales. La fêlure héréditaire qu'elle transmet se manifeste différemment chez chacun de ses descendants. Elle assiste à l'exécution de son petit-fils Silvère en 1851 et est aussitôt internée aux Tulettes, où elle vivra plus de vingt ans dans un état de stupeur croissante.",
+            "physical_en": "Gaunt, pallid, with wide staring eyes and a fixed, otherworldly expression — the family's mark of nervous instability made visible in its source. In her extreme old age she sits motionless for hours, then erupts without warning into a fit of shuddering that seems to pass through her whole body.",
             "featured_on_landing": True, "tree_x": 550, "tree_y": 80,
         },
 
@@ -128,8 +134,8 @@ def run():
             "occupation": "Bourgeois landowner, politician",
             "branch": "rougon",
             "generation": 1,
-            "description_en": "The legitimate son of Adélaïde. Cunning, cold, and entirely self-interested, Pierre manoeuvres himself into political power in Plassans during the coup of 1851. He is the founder of the respectable Rougon line — a man who has always known exactly what he wants and has no scruples about how he gets it.",
-            "description_fr": "Fils légitime d'Adélaïde. Rusé et froid, Pierre s'empare du pouvoir politique lors du coup d'État de 1851. Fondateur de la ligne Rougon.",
+            "description_en": "The legitimate son of Adélaïde. Cunning, cold, and entirely self-interested, Pierre had already cheated his mother and half-siblings out of their inheritance before the events of La Fortune des Rougon begin. During the coup of December 1851 he manoeuvres himself into political power in Plassans — rallying a token band of forty-one men, seizing the empty town hall, and presenting himself as the city's saviour after the real fighting is already over. The 'yellow drawing room' that he and Félicité keep is the nerve centre of Plassans's conservative establishment. He is rewarded with the Legion of Honour and a promise of preferment from Paris. He is the founder of the respectable Rougon line — a man who has always known exactly what he wants and has never had a scruple about how he gets it.",
+            "description_fr": "Fils légitime d'Adélaïde. Après avoir floué sa mère et ses demi-frères de leur héritage, Pierre s'empare du pouvoir politique à Plassans lors du coup d'État de 1851 avec quarante et un hommes. Récompensé par la Légion d'honneur, il incarne l'opportunisme bourgeois triomphant.",
             "physical_en": "Heavy-set, ruddy complexion, with the calculating eyes of a man who has never acted without self-interest.",
             "featured_on_landing": True, "tree_x": 280, "tree_y": 210,
         },
@@ -140,8 +146,8 @@ def run():
             "occupation": "Bourgeoise, social climber",
             "branch": "rougon",
             "generation": 1,
-            "description_en": "Pierre's sharp, energetic wife. More intelligent than her husband, she is the true architect of the family's social ambitions. A tireless schemer from a modest background, she outlives almost everyone in the saga and witnesses the whole drama from Plassans — enjoying every triumph and mourning no defeat for long.",
-            "description_fr": "Femme de Pierre, plus intelligente que lui, elle est la véritable architecte des ambitions sociales de la famille. Survivante et témoin de toute la saga depuis Plassans.",
+            "description_en": "Pierre's sharp, energetic wife — and the real intelligence behind the Rougon ascent. It is Félicité who understands that in provincial France, reputation and timing matter more than courage or talent; who cultivates the right connections in the yellow drawing room; who engineers the story that reaches Paris after the coup. From a modest enough background herself (daughter of a small-time oil merchant), she has made the family's ambition entirely her own. More than any other character in the cycle she survives: she outlives almost everyone, witnesses the whole drama from Plassans across twenty years of Second Empire, and in Le Docteur Pascal she is still there — still scheming, still enjoying the triumphs of her children and grandchildren.",
+            "description_fr": "Femme de Pierre et véritable architecte de l'ascension Rougon. C'est elle qui comprend que dans la province française, la réputation et le moment comptent plus que le courage. Elle cultive les bonnes relations dans leur salon jaune et survit à presque tous les membres de la saga.",
             "physical_en": "Small, dark, quick-eyed, with the restless energy of someone who is always scheming.",
             "featured_on_landing": True, "tree_x": 160, "tree_y": 210,
         },
@@ -162,8 +168,10 @@ def run():
             "occupation": "Drunkard, small trader, former soldier",
             "branch": "macquart",
             "generation": 1,
-            "description_en": "The illegitimate son of Adélaïde by the smuggler Macquart. Bitter, idle, and alcoholic, he embodies the hereditary vice of the Macquart line. He resents the Rougons' prosperity and nurses his grievances for decades. Father of Lisa, Gervaise, and Jean. He dies a gruesome but darkly comic death in La Terre.",
-            "description_fr": "Fils illégitime d'Adélaïde et du braconnier Macquart. Alcoolique et rancunier, il incarne le vice héréditaire. Père de Lisa, Gervaise et Jean.",
+            "image_url": "/static/images/characters/antoine-macquart.png",
+            "image_credit": "Engraving from the Vizetelly English translation of La Fortune des Rougon (1886) — Public domain",
+            "description_en": "The illegitimate son of Adélaïde by the smuggler Macquart. Bitter, idle, and alcoholic, he embodies the hereditary vice of the Macquart line — the same tainted blood that produces genius in one descendant and madness in another here producing mere rancour and dissolution. He served in the army and came back with nothing except a sense of grievance against the Rougons, who have inherited the family property while he has inherited only his father's vices. Father of Lisa, Gervaise, and Jean, he treats his family as a resource to be exploited and abuses his long-suffering wife Joséphine for decades. His resentment of Pierre Rougon's prosperity is one of the cycle's persistent bass notes. He dies a gruesome but darkly comic death in La Terre — spontaneously combusting after a life of near-pure alcohol.",
+            "description_fr": "Fils illégitime d'Adélaïde et du braconnier Macquart. Alcoolique et rancunier, il incarne le vice héréditaire. Père de Lisa, Gervaise et Jean, il meurt d'une combustion spontanée dans La Terre.",
             "physical_en": "Slouching, sallow, with reddened nose and the loose gestures of a habitual drinker.",
             "featured_on_landing": True, "tree_x": 820, "tree_y": 210,
         },
@@ -317,9 +325,11 @@ def run():
             "occupation": "Blacksmith's apprentice, Republican",
             "branch": "mouret",
             "generation": 2,
-            "description_en": "Grandson of Adélaïde, who raises him after his mother Ursule's death. A passionate young Republican who joins the insurgent column marching on Plassans during the 1851 coup — and is shot for it. His death, alongside his beloved Miette, opens the cycle with one of its most beautiful and heartbreaking passages.",
-            "description_fr": "Petit-fils d'Adélaïde, jeune républicain passionné fusillé lors du coup d'État de 1851 avec sa bien-aimée Miette.",
-            "physical_en": "Young, handsome, burning with republican idealism and the nervous energy inherited from Adélaïde.",
+            "image_url": "/static/images/characters/silvere-mouret.png",
+            "image_credit": "Engraving from the Vizetelly English translation of La Fortune des Rougon (1886) — Public domain",
+            "description_en": "Grandson of Adélaïde, raised by her after his mother Ursule's early death. He is apprenticed to a blacksmith and has educated himself on Republican ideals — he worships the idea of the Republic with the same fervour that a more conventional boy of his time might have given to religion. When the insurgent column forms to resist Napoleon III's coup, he joins without hesitation, and it is he who procures the red flag that Miette will carry. His love for Miette — stolen meetings at the old cemetery, an innocence that Zola describes with genuine tenderness — is one of the cycle's most affecting relationships. He is shot and killed by the gendarme Rengade (whose eye he had accidentally injured earlier) beside the tombstone at the aire Saint-Mittre, the very stone inscribed 'Ci-gît Marie' where he and Miette had met. He is seventeen. His death is the cycle's founding tragedy: the one character in La Fortune des Rougon who acts from pure conviction dies for it, while the opportunists inherit everything.",
+            "description_fr": "Petit-fils d'Adélaïde, apprenti forgeron et républicain convaincu. Il rejoint la colonne insurgée lors du coup d'État de 1851. Son amour pour Miette, décrit avec une tendresse rare, est l'une des relations les plus touchantes du cycle. Fusillé à dix-sept ans par le gendarme Rengade.",
+            "physical_en": "Young, handsome, with the open face of someone who has not yet learned to hide what he thinks or feels — and the nervous, burning energy inherited from Adélaïde.",
             "featured_on_landing": False, "tree_x": None, "tree_y": None,
         },
 
@@ -646,9 +656,11 @@ def run():
             "occupation": "Labourer's helper",
             "branch": "other",
             "generation": 3,
-            "description_en": "Silvère's beloved in La Fortune des Rougons. An orphaned girl of thirteen or fourteen whose father was imprisoned for poaching, leaving her to be exploited by an uncle. She and Silvère find each other among the Republican insurgents marching on Plassans. She carries the red flag and dies with Silvère — shot — in the opening pages of the cycle's first novel.",
-            "description_fr": "Bien-aimée de Silvère dans La Fortune des Rougons. Orpheline qui porte le drapeau rouge parmi les insurgés républicains et meurt avec Silvère.",
-            "physical_en": "Wild-haired, dark-eyed, with the tanned face of a girl who has spent her life outdoors and the fierce beauty of someone who has never been tamed.",
+            "image_url": "/static/images/characters/miette.png",
+            "image_credit": "Engraving from the Vizetelly English translation of La Fortune des Rougon (1886) — Public domain",
+            "description_en": "Silvère's beloved in La Fortune des Rougon — and one of the cycle's most purely tragic figures. Born Marie-Jeanne Chantegreil, she is thirteen or fourteen years old, orphaned after her father was imprisoned for poaching a rabbit, and left to be exploited as an unpaid servant by a brutal uncle. She and Silvère meet secretly at the old cemetery of the aire Saint-Mittre and fall into the tender, half-understood love of adolescence. When the insurgent column forms she insists on marching with Silvère, turning her cloak inside-out to show its red lining and taking up the flag as the column's standard-bearer. Zola renders her at this moment as 'la vierge Liberté' — the virgin Liberty — an allegorical figure out of Delacroix. She tells Silvère that it feels like carrying the Virgin's banner in a Corpus Christi procession: she is a child playing at revolution, with no real understanding of what she is in the middle of. She is shot near Orchères and dies in Silvère's arms, clutching the flag. Dr Pascal, who will become the cycle's scientific conscience, pronounces her dead.",
+            "description_fr": "Bien-aimée de Silvère, treize ou quatorze ans, orpheline exploitée par un oncle brutal. Elle marche avec les insurgés, le manteau retourné pour montrer sa doublure rouge, portant le drapeau dont Zola fait un symbole de la Liberté. Elle croit porter la bannière de la Vierge. Abattue près d'Orchères, elle meurt dans les bras de Silvère.",
+            "physical_en": "Wild-haired, dark-eyed, with the tanned face of a girl who has spent her whole life outdoors and the fierce, unselfconscious beauty of someone who has never been told she is beautiful.",
             "featured_on_landing": False, "tree_x": None, "tree_y": None,
         },
         {
@@ -1126,8 +1138,8 @@ def run():
          "Le cœur du Second Empire et le décor dominant du cycle. Paris est une ville en transformation violente sous Haussmann.",
          True, 48.8566, 2.3522),
         ("plassans", "Plassans", "city",
-         "A fictional provincial town in the south of France, based on Aix-en-Provence. The ancestral home of the Rougon family and the setting of three novels — La Fortune des Rougons, La Conquête de Plassans, and Le Docteur Pascal. Its yellow-baked, gossipy quietness makes the Rougons' ambition all the more striking.",
-         "Ville provinciale fictive du sud de la France, inspirée d'Aix-en-Provence. Berceau de la famille Rougon et décor de trois romans.",
+         "A fictional provincial town in the south of France, modelled closely on Aix-en-Provence (where Zola grew up). The ancestral home of the Rougon family and the setting of three novels — La Fortune des Rougon, La Conquête de Plassans, and Le Docteur Pascal. Zola describes it as a sleepy, sun-baked town divided into three quartiers — the aristocratic Saint-Marc, the bourgeois new town, and the working-class old quarter. Its gossip, its small ambitions, and its yellow-walled calm make the Rougons' scheming all the more vivid: here a man can seize power with forty-one armed neighbours and a lucky night. The aire Saint-Mittre — a disused cemetery on the edge of town — is where Silvère and Miette meet in secret, and where Silvère is ultimately executed beside the tombstone of Marie. The asylum at Les Tulettes is a few miles outside Plassans; Adélaïde Fouque will spend her last decades there.",
+         "Ville provinciale fictive inspirée d'Aix-en-Provence. Berceau des Rougon et décor de trois romans. L'aire Saint-Mittre, ancien cimetière en lisière de la ville, est le lieu de rencontre secret de Silvère et Miette, et le lieu de l'exécution de Silvère.",
          True, 43.5297, 5.4474),
         ("montsou", "Montsou", "mining town",
          "A fictional coal-mining town in northern France, based on Anzin and the Valenciennes coalfield. The setting of Germinal — flat, black, dominated by the pit-heads, slag heaps, and the devouring mouth of the Voreux mine. Zola researched it exhaustively, living among miners to capture the conditions accurately.",
@@ -1182,6 +1194,24 @@ def run():
             "Napoleon III's coup overthrows the Second Republic. In Plassans, Pierre and Félicité Rougon use the chaos to seize local power, founding the family's fortune on the corpses of the Republican resistance.",
             "Le coup d'État de Napoléon III renverse la Seconde République. À Plassans, les Rougon s'emparent du pouvoir local.",
             ["pierre-rougon", "felicite-rougon"],
+        ),
+        (
+            "Death of Silvère and Miette",
+            "Mort de Silvère et de Miette",
+            1851, "December 1851", "personal",
+            "la-fortune-des-rougon",
+            "Miette Chantegreil, thirteen years old, is shot and killed while carrying the red Republican flag near Orchères. Silvère Mouret is subsequently arrested and executed by the gendarme Rengade — shot in the head beside the tombstone at the aire Saint-Mittre, the very place where he and Miette had secretly met. Dr Pascal, who will become the cycle's scientific conscience, pronounces Miette dead. The deaths of the two lovers are the cycle's founding tragedy: the Republic, embodied in a child who thought she was carrying the Virgin's banner, is killed; the opportunists inherit.",
+            "Miette Chantegreil, treize ans, est abattue en portant le drapeau républicain près d'Orchères. Silvère est ensuite fusillé par le gendarme Rengade à l'aire Saint-Mittre. Leurs morts sont la tragédie inaugurale du cycle.",
+            ["silvere-mouret", "miette"],
+        ),
+        (
+            "Adélaïde Fouque confined to Les Tulettes",
+            "Internement d'Adélaïde Fouque aux Tulettes",
+            1851, "December 1851", "personal",
+            "la-fortune-des-rougon",
+            "After witnessing her grandson Silvère's execution at the aire Saint-Mittre, Adélaïde Fouque — the matriarch of the entire dynasty — loses the last of her sanity. Raving about 'le prix du sang' (the price of blood), she is committed to the lunatic asylum at Les Tulettes near Plassans. She will remain there for more than twenty years, visited occasionally by other characters across the cycle, an ancient hollow-eyed witness to the dynasty she created. She is still alive in Le Docteur Pascal (1873), aged over a hundred.",
+            "Après avoir assisté à l'exécution de son petit-fils Silvère, Adélaïde Fouque sombre définitivement dans la folie. Internée aux Tulettes, elle y vivra plus de vingt ans, témoin silencieux et oublié de la saga qu'elle a fondée.",
+            ["adelaide-fouque"],
         ),
         (
             "Napoleon III proclaims the Second Empire",
@@ -1359,6 +1389,27 @@ def run():
     # ── QUOTES ───────────────────────────────────────────────────────────────
     # Tuples: (char_slug_or_None, novel_slug, text_fr, text_en, context)
     quotes_data = [
+        (
+            None,
+            "la-fortune-des-rougon",
+            "Je veux expliquer comment une famille, un petit groupe d'êtres, se comporte dans une société, en s'épanouissant pour donner naissance à dix, à vingt individus qui paraissent, au premier coup d'œil, profondément dissemblables, mais que l'analyse montre intimement liés les uns aux autres. L'hérédité a ses lois, comme la pesanteur.",
+            "I want to show how a family, a small group of beings, behaves within society as it blossoms and gives birth to ten, to twenty individuals who appear, at first glance, profoundly unlike one another, but whom analysis shows to be intimately linked. Heredity has its laws, just as gravity does.",
+            "Preface (1871) — Zola's programmatic statement for the entire twenty-novel cycle, explaining what the Rougon-Macquart series sets out to prove",
+        ),
+        (
+            "miette",
+            "la-fortune-des-rougon",
+            "Il lui semblait qu'elle était à la procession de la Fête-Dieu, et qu'elle portait la bannière de la Vierge.",
+            "It seemed to her that she was in the Corpus Christi procession, and that she was carrying the banner of the Virgin.",
+            "Miette, carrying the red Republican flag at the head of the insurgent column — her innocence making the tragedy to come all the more bitter",
+        ),
+        (
+            None,
+            "la-fortune-des-rougon",
+            "Comme il avait relevé la fortune des Bonaparte, le coup d'État fondait la fortune des Rougon.",
+            "Just as it had restored the fortunes of the Bonapartes, the coup d'état was founding the fortune of the Rougons.",
+            "The narrator's ironic verdict as Pierre Rougon's triumph is complete — the cycle's founding political equation",
+        ),
         (
             None,
             "germinal",
