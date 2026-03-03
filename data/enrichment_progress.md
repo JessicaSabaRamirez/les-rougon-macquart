@@ -22,10 +22,10 @@ Tracking by **Vizetelly reading order** (not publication number).
 | 9  | 5  | La Faute de l'Abbé Mouret    | —  | [x] | —  | [x] | [x] |
 | 10 | 8  | Une Page d'amour             | —  | [x] | —  | [x] | [x] |
 | 11 | 3  | Le Ventre de Paris           | —  | [x] | —  | [x] | [x] |
-| 12 | 12 | La Joie de vivre             | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 13 | 7  | L'Assommoir                  | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 14 | 14 | L'Œuvre                      | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 15 | 9  | Nana                         | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 12 | 12 | La Joie de vivre             | —  | [x] | —  | [x] | [x] |
+| 13 | 7  | L'Assommoir                  | —  | [x] | —  | [x] | [x] |
+| 14 | 14 | L'Œuvre                      | —  | [x] | —  | [x] | [x] |
+| 15 | 9  | Nana                         | —  | [x] | —  | [x] | [x] |
 | 16 | 17 | La Bête humaine              | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 17 | 13 | Germinal                     | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 18 | 15 | La Terre                     | [ ] | [ ] | [ ] | [ ] | [ ] |
@@ -47,6 +47,14 @@ Tracking by **Vizetelly reading order** (not publication number).
 - Expanded novel summary with full thematic/plot coverage
 - 1 quote added (Paris taken by storm)
 - 1 timeline event added (Saccard's first fortune)
+
+### Vizetelly #12–15 — La Joie de vivre, L'Assommoir, L'Œuvre, Nana ✓ COMPLETE (batch 3)
+- New characters: Count Muffat de Beuville (Nana), Fontan (Nana), Pierre Sandoz (L'Œuvre)
+- Expanded novel summaries: all 4 novels (full thematic/plot coverage)
+- Expanded bios: Nana (major), Gervaise Macquart (major)
+- 4 new timeline events: Coupeau falls from roof, Death of Gervaise, Nana dies of smallpox, Claude hangs himself
+- No quotes added this batch (accuracy threshold not met)
+- DB totals after seed: 68 characters, 33 events, 20 quotes, 96 appearances
 
 ### Vizetelly #8–11 — Au Bonheur des Dames, La Faute de l'Abbé Mouret, Une Page d'amour, Le Ventre de Paris ✓ COMPLETE (batch 2)
 - New characters: Frère Archangias (La Faute), La Normande (Le Ventre), Bourdoncle (Au Bonheur)
