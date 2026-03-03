@@ -26,11 +26,11 @@ Tracking by **Vizetelly reading order** (not publication number).
 | 13 | 7  | L'Assommoir                  | —  | [x] | —  | [x] | [x] |
 | 14 | 14 | L'Œuvre                      | —  | [x] | —  | [x] | [x] |
 | 15 | 9  | Nana                         | —  | [x] | —  | [x] | [x] |
-| 16 | 17 | La Bête humaine              | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 17 | 13 | Germinal                     | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 18 | 15 | La Terre                     | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 19 | 19 | La Débâcle                   | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 20 | 20 | Le Docteur Pascal            | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 16 | 17 | La Bête humaine              | —  | [x] | —  | [x] | [x] |
+| 17 | 13 | Germinal                     | —  | [x] | —  | [x] | [x] |
+| 18 | 15 | La Terre                     | —  | [x] | —  | [x] | [x] |
+| 19 | 19 | La Débâcle                   | —  | [x] | —  | [x] | [x] |
+| 20 | 20 | Le Docteur Pascal            | —  | [x] | —  | [x] | [x] |
 
 ## Notes per novel
 
@@ -47,6 +47,15 @@ Tracking by **Vizetelly reading order** (not publication number).
 - Expanded novel summary with full thematic/plot coverage
 - 1 quote added (Paris taken by storm)
 - 1 timeline event added (Saccard's first fortune)
+
+### Vizetelly #16–20 — La Bête humaine, Germinal, La Terre, La Débâcle, Le Docteur Pascal ✓ COMPLETE (batch 4 — FINAL)
+- New characters: Père Fouan, Buteau, Françoise (all La Terre)
+- Expanded novel summaries: all 5 novels (full thematic/plot coverage)
+- Expanded bios: Jean Macquart, Étienne Lantier, Jacques Lantier, Dr Pascal Rougon (all major)
+- 5 new timeline events: Army fires on Montsou strikers, Jacques kills Séverine, Père Fouan murdered, Jean kills Maurice, Félicité burns Pascal's files
+- No quotes added this batch (existing quotes already cover Germinal, La Bête humaine, La Terre, Le Docteur Pascal well)
+- DB totals after seed: 71 characters, 38 events, 20 quotes, 99 appearances
+- **ALL 20 NOVELS NOW COMPLETE**
 
 ### Vizetelly #12–15 — La Joie de vivre, L'Assommoir, L'Œuvre, Nana ✓ COMPLETE (batch 3)
 - New characters: Count Muffat de Beuville (Nana), Fontan (Nana), Pierre Sandoz (L'Œuvre)
