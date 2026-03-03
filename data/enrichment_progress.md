@@ -7,28 +7,30 @@
 
 ## Novels
 
-| # | Title | Images | Bios | Quotes | Events | Location | Done |
-|---|-------|--------|------|--------|--------|----------|------|
-| 1 | La Fortune des Rougon | [x] | [x] | [x] | [x] | [x] | [x] |
-| 2 | La Curée | — | [x] | — | [x] | — | [x] |
-| 3 | Le Ventre de Paris | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 4 | La Conquête de Plassans | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 5 | La Faute de l'Abbé Mouret | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 6 | Son Excellence Eugène Rougon | — | [x] | [x] | [x] | — | [x] |
-| 7 | L'Assommoir | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 8 | Une Page d'amour | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 9 | Nana | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 10 | Pot-Bouille | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 11 | Au Bonheur des Dames | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 12 | La Joie de vivre | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 13 | Germinal | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 14 | L'Œuvre | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 15 | La Terre | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 16 | Le Rêve | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 17 | La Bête humaine | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 18 | L'Argent | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 19 | La Débâcle | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 20 | Le Docteur Pascal | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+Tracking by **Vizetelly reading order** (not publication number).
+
+| Viz# | Pub# | Title | Images | Bios | Quotes | Events | Done |
+|------|------|-------|--------|------|--------|--------|------|
+| 1  | 1  | La Fortune des Rougon       | [x] | [x] | [x] | [x] | [x] |
+| 2  | 6  | Son Excellence Eugène Rougon | —  | [x] | [x] | [x] | [x] |
+| 3  | 2  | La Curée                     | —  | [x] | —  | [x] | [x] |
+| 4  | 18 | L'Argent                     | —  | [x] | —  | [x] | [x] |
+| 5  | 16 | Le Rêve                      | —  | [x] | —  | [x] | [x] |
+| 6  | 4  | La Conquête de Plassans       | —  | [x] | —  | [x] | [x] |
+| 7  | 10 | Pot-Bouille                  | —  | [x] | —  | [x] | [x] |
+| 8  | 11 | Au Bonheur des Dames         | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 9  | 5  | La Faute de l'Abbé Mouret    | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 10 | 8  | Une Page d'amour             | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 11 | 3  | Le Ventre de Paris           | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 12 | 12 | La Joie de vivre             | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 13 | 7  | L'Assommoir                  | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 14 | 14 | L'Œuvre                      | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 15 | 9  | Nana                         | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 16 | 17 | La Bête humaine              | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 17 | 13 | Germinal                     | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 18 | 15 | La Terre                     | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 19 | 19 | La Débâcle                   | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 20 | 20 | Le Docteur Pascal            | [ ] | [ ] | [ ] | [ ] | [ ] |
 
 ## Notes per novel
 
@@ -45,6 +47,14 @@
 - Expanded novel summary with full thematic/plot coverage
 - 1 quote added (Paris taken by storm)
 - 1 timeline event added (Saccard's first fortune)
+
+### Vizetelly #4–7 — L'Argent, Le Rêve, La Conquête, Pot-Bouille ✓ COMPLETE (batch 1)
+- New characters added: Georges Hamelin (L'Argent), Félicien de Hautecœur (Le Rêve)
+- Expanded novel summaries: all 4 novels (full thematic/plot coverage, EN only)
+- Expanded bios: Octave Mouret, Caroline Hamelin, Angélique Rougon, Marthe Rougon, François Mouret, Abbé Faujas
+- 3 new timeline events: Saccard's bank crash (expanded), François burns the house, Angélique dies on cathedral steps, Octave arrives in Paris
+- No quotes added this batch (accuracy threshold not met)
+- DB totals after seed: 62 characters, 25 events, 20 quotes, 90 appearances
 
 ### Novel 1 — La Fortune des Rougon ✓ COMPLETE
 - Images added: Adélaïde (Géricault portrait), Antoine, Miette, Silvère (Vizetelly engravings)
