@@ -10,11 +10,11 @@
 | # | Title | Images | Bios | Quotes | Events | Location | Done |
 |---|-------|--------|------|--------|--------|----------|------|
 | 1 | La Fortune des Rougon | [x] | [x] | [x] | [x] | [x] | [x] |
-| 2 | La Curée | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 2 | La Curée | — | [x] | — | [x] | — | [x] |
 | 3 | Le Ventre de Paris | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 4 | La Conquête de Plassans | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 5 | La Faute de l'Abbé Mouret | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 6 | Son Excellence Eugène Rougon | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 6 | Son Excellence Eugène Rougon | — | [x] | [x] | [x] | — | [x] |
 | 7 | L'Assommoir | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 8 | Une Page d'amour | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 9 | Nana | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
@@ -31,6 +31,20 @@
 | 20 | Le Docteur Pascal | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 
 ## Notes per novel
+
+### Novel 6 — Son Excellence Eugène Rougon ✓ COMPLETE (Vizetelly order #2)
+- New character added: Clorinde Balbi (major, Son Excellence appearances)
+- Expanded bios: Eugène Rougon, Clorinde Balbi
+- Expanded novel summary (EN + FR)
+- 1 quote added (power for power's sake)
+- 1 timeline event added (Rougon's fall and recall cycle)
+- Universal Exposition event description enriched
+
+### Novel 2 — La Curée ✓ COMPLETE (Vizetelly order #3)
+- Expanded bios: Aristide Saccard, Renée Saccard, Maxime Saccard
+- Expanded novel summary with full thematic/plot coverage
+- 1 quote added (Paris taken by storm)
+- 1 timeline event added (Saccard's first fortune)
 
 ### Novel 1 — La Fortune des Rougon ✓ COMPLETE
 - Images added: Adélaïde (Géricault portrait), Antoine, Miette, Silvère (Vizetelly engravings)
