@@ -18,10 +18,10 @@ Tracking by **Vizetelly reading order** (not publication number).
 | 5  | 16 | Le Rêve                      | —  | [x] | —  | [x] | [x] |
 | 6  | 4  | La Conquête de Plassans       | —  | [x] | —  | [x] | [x] |
 | 7  | 10 | Pot-Bouille                  | —  | [x] | —  | [x] | [x] |
-| 8  | 11 | Au Bonheur des Dames         | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 9  | 5  | La Faute de l'Abbé Mouret    | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 10 | 8  | Une Page d'amour             | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 11 | 3  | Le Ventre de Paris           | [ ] | [ ] | [ ] | [ ] | [ ] |
+| 8  | 11 | Au Bonheur des Dames         | —  | [x] | —  | [x] | [x] |
+| 9  | 5  | La Faute de l'Abbé Mouret    | —  | [x] | —  | [x] | [x] |
+| 10 | 8  | Une Page d'amour             | —  | [x] | —  | [x] | [x] |
+| 11 | 3  | Le Ventre de Paris           | —  | [x] | —  | [x] | [x] |
 | 12 | 12 | La Joie de vivre             | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 13 | 7  | L'Assommoir                  | [ ] | [ ] | [ ] | [ ] | [ ] |
 | 14 | 14 | L'Œuvre                      | [ ] | [ ] | [ ] | [ ] | [ ] |
@@ -47,6 +47,14 @@ Tracking by **Vizetelly reading order** (not publication number).
 - Expanded novel summary with full thematic/plot coverage
 - 1 quote added (Paris taken by storm)
 - 1 timeline event added (Saccard's first fortune)
+
+### Vizetelly #8–11 — Au Bonheur des Dames, La Faute de l'Abbé Mouret, Une Page d'amour, Le Ventre de Paris ✓ COMPLETE (batch 2)
+- New characters: Frère Archangias (La Faute), La Normande (Le Ventre), Bourdoncle (Au Bonheur)
+- Expanded novel summaries: all 4 novels (full thematic/plot coverage)
+- Expanded bios: Hélène Grandjean, Denise Baudu
+- 4 new timeline events: Albine dies, Florent denounced, Jeanne dies, Au Bonheur final expansion
+- No quotes added this batch (accuracy threshold not met)
+- DB totals after seed: 65 characters, 29 events, 20 quotes, 93 appearances
 
 ### Vizetelly #4–7 — L'Argent, Le Rêve, La Conquête, Pot-Bouille ✓ COMPLETE (batch 1)
 - New characters added: Georges Hamelin (L'Argent), Félicien de Hautecœur (Le Rêve)
