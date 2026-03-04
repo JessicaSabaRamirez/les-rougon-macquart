@@ -95,3 +95,31 @@ function closeDropdown() {
   searchDropdown.hidden = true;
   searchDropdown.innerHTML = '';
 }
+
+
+/* ── Hamburger nav toggle ─────────────────────────────────────────────────── */
+const navToggle = document.getElementById('navToggle');
+const siteNav   = document.getElementById('siteNav');
+
+if (navToggle && siteNav) {
+  navToggle.addEventListener('click', () => {
+    const open = siteNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+
+  // Close nav when a link is tapped (mobile UX)
+  siteNav.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      siteNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Close nav when clicking outside header
+  document.addEventListener('click', e => {
+    if (!navToggle.contains(e.target) && !siteNav.contains(e.target)) {
+      siteNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+}

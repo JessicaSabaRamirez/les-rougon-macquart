@@ -16,7 +16,7 @@ templates = Jinja2Templates(directory="app/templates")
 async def character_list(request: Request, db: Session = Depends(get_db)):
     characters = (
         db.query(Character)
-        .order_by(Character.generation, Character.name)
+        .order_by(Character.name)
         .all()
     )
     return templates.TemplateResponse(
@@ -61,6 +61,7 @@ async def landing_tree_data(db: Session = Depends(get_db)):
         char_data.append({
             "id": c.slug,
             "name": c.name,
+            "birth_name": c.birth_name,
             "role": c.occupation,
             "branch": c.branch or "other",
             "generation": c.generation,
@@ -75,6 +76,62 @@ async def landing_tree_data(db: Session = Depends(get_db)):
 
     rel_data = []
     slug_map = {c.id: c.slug for c in chars}
+    for r in relations:
+        rel_data.append({
+            "from": slug_map.get(r.character_a_id),
+            "to": slug_map.get(r.character_b_id),
+            "type": r.relation_type,
+        })
+
+    return {"characters": char_data, "relations": rel_data}
+
+
+@router.get("/api/family-tree")
+async def family_tree_data(db: Session = Depends(get_db)):
+    """Return JSON data for the full genealogy page (all family-branch characters)."""
+    chars = (
+        db.query(Character)
+        .filter(Character.branch.in_(["rougon", "macquart", "mouret"]))
+        .order_by(Character.generation, Character.branch, Character.name)
+        .all()
+    )
+
+    family_ids = {c.id for c in chars}
+    relations = (
+        db.query(CharacterRelation)
+        .filter(
+            CharacterRelation.character_a_id.in_(family_ids),
+            CharacterRelation.character_b_id.in_(family_ids),
+            CharacterRelation.relation_type.in_(["parent", "spouse", "union"])
+        )
+        .all()
+    )
+
+    char_data = []
+    for c in chars:
+        appearances = (
+            db.query(CharacterAppearance)
+            .filter(CharacterAppearance.character_id == c.id)
+            .join(Novel)
+            .all()
+        )
+        novel_titles = [a.novel.title_en for a in appearances]
+        char_data.append({
+            "id": c.slug,
+            "name": c.name,
+            "birth_name": c.birth_name,
+            "role": c.occupation,
+            "branch": c.branch or "other",
+            "generation": c.generation,
+            "description_en": c.description_en,
+            "description_fr": c.description_fr,
+            "novels": novel_titles,
+            "image_url": c.image_url,
+            "url": f"/characters/{c.slug}",
+        })
+
+    slug_map = {c.id: c.slug for c in chars}
+    rel_data = []
     for r in relations:
         rel_data.append({
             "from": slug_map.get(r.character_a_id),

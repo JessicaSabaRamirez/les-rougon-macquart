@@ -48,6 +48,10 @@
 </div>
 {% endblock %}
 
+{% block extra_head %}
+<script>if(window.innerWidth<=768)location.replace('/characters');</script>
+{% endblock %}
+
 {% block extra_scripts %}
 <script>
 // ── Load tree data from API, then render ────────────────────────────────────
@@ -165,10 +169,13 @@ function renderTree({ characters, relations }) {
       style:`font-family:'IM Fell English SC',serif;font-size:${r*0.65}px;fill:#4a3c28;opacity:.18;pointer-events:none` }, g);
     init.textContent = c.name.charAt(0);
 
-    // Name
-    const parts = c.name.split(' ');
+    // Name — use birth/maiden name for display if available
+    const rawName = c.birth_name || c.name;
+    const parts = rawName.split(' ');
+    // For long names (3+ words), use only first + last word so text fits medallion
     const last = parts[parts.length - 1];
-    const first = parts.slice(0, -1).join(' ');
+    // Truncate only when birth_name is the source and has 3+ words (e.g. "Renée Béraud du Châtel")
+    const first = (c.birth_name && parts.length > 2) ? parts[0] : parts.slice(0, -1).join(' ');
     if (first) {
       const t1 = svgEl('text', { x:c.x, y:c.y-5,
         'text-anchor':'middle', 'dominant-baseline':'central',
@@ -217,7 +224,7 @@ const ttDesc  = document.getElementById('ttDesc');
 const ttNovels = document.getElementById('ttNovels');
 
 function showTooltip(e, c) {
-  ttName.textContent = c.name;
+  ttName.textContent = c.birth_name || c.name;
   ttRole.textContent = c.role;
   ttDesc.textContent = currentLang === 'fr' ? (c.description_fr || c.description_en) : c.description_en;
   ttNovels.textContent = c.novels.length ? '↗ ' + c.novels.slice(0,3).join(' · ') + (c.novels.length > 3 ? ' …' : '') : '';

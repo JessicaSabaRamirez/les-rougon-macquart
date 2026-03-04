@@ -23,8 +23,12 @@
       <span class="brand-sub" data-en="A Companion" data-fr="Un Guide">A Companion</span>
     </a>
 
-    <nav class="site-nav" aria-label="Main navigation">
-      <a href="/" class="nav-link {% if request.url.path == '/' %}active{% endif %}"
+    <button class="hamburger" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="site-nav" id="siteNav" aria-label="Main navigation">
+      <a href="/genealogy" class="nav-link {% if request.url.path == '/genealogy' or request.url.path == '/' %}active{% endif %}"
          data-en="Genealogy" data-fr="Généalogie">Genealogy</a>
       <a href="/characters" class="nav-link {% if '/characters' in request.url.path %}active{% endif %}"
          data-en="Characters" data-fr="Personnages">Characters</a>

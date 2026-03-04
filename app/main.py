@@ -46,6 +46,12 @@ async def home(request: Request):
     return templates.TemplateResponse(request, "index.html")
 
 
+@app.get("/genealogy", response_class=HTMLResponse)
+async def genealogy(request: Request):
+    """Full genealogy page — all family-branch characters with pan/zoom."""
+    return templates.TemplateResponse(request, "genealogy.html")
+
+
 @app.get("/health")
 async def health():
     return {"status": "ok"}
