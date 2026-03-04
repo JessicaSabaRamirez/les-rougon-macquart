@@ -1047,6 +1047,12 @@ def run():
     relate("aristide-saccard", "victor-saccard", "parent",
            "Illegitimate son, acknowledged late in L'Argent.")
     relate("victor-saccard", "aristide-saccard", "child")
+    relate("aristide-saccard", "clotilde-rougon", "parent",
+           "Clotilde is Aristide's daughter by his first wife Angèle Sicardot.")
+    relate("clotilde-rougon", "aristide-saccard", "child")
+    relate("sidonie-rougon", "angelique-rougon", "parent",
+           "Angélique's Rougon origins are part of Zola's genealogical plan; the novel itself leaves her parentage deliberately obscure.")
+    relate("angelique-rougon", "sidonie-rougon", "child")
 
     # ── Lisa's children ──────────────────────────────────────────────────────
     relate("lisa-quenu", "pauline-quenu", "parent")

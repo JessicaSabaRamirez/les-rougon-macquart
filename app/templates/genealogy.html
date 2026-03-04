@@ -166,9 +166,14 @@ const GEN_Y = [80, 230, 385, 540]; // y positions for gen 0–3
 const branchOrder = { rougon: 0, macquart: 1, mouret: 2, other: 3 };
 
 function autoLayout(characters, relations) {
-  // Build spouse map: id → id
+  // Build parent map (child slug → [parent slugs]) and spouse map
+  const childToParents = {};
   const spouseOf = {};
   (relations || []).forEach(r => {
+    if (r.type === 'parent') {
+      if (!childToParents[r.to]) childToParents[r.to] = [];
+      childToParents[r.to].push(r.from);
+    }
     if (r.type === 'spouse' || r.type === 'union') {
       spouseOf[r.from] = r.to;
       spouseOf[r.to]   = r.from;
@@ -182,19 +187,32 @@ function autoLayout(characters, relations) {
     byGen[g].push(c);
   });
 
-  const positioned = [];
-  for (const [genStr, chars] of Object.entries(byGen)) {
-    const gen  = parseInt(genStr);
-    const y    = GEN_Y[gen] ?? (GEN_Y[GEN_Y.length - 1] + (gen - GEN_Y.length + 1) * 155);
+  const posById = {};  // slug → { x, y } for already-positioned characters
+  const result  = [];
+  const gens    = Object.keys(byGen).map(Number).sort((a, b) => a - b);
 
-    // Sort by branch then name initially
+  for (const gen of gens) {
+    const chars = byGen[gen];
+    const y = GEN_Y[gen] ?? (GEN_Y[GEN_Y.length - 1] + (gen - GEN_Y.length + 1) * 155);
+    const charIds = new Set(chars.map(c => c.id));
+
+    // Average x of this character's already-positioned parents
+    const getParentX = id => {
+      const xs = (childToParents[id] || []).map(p => posById[p]?.x).filter(x => x != null);
+      return xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null;
+    };
+
+    // Sort by parent x (keeps family subtrees together), then branch, then name
     const sorted = [...chars].sort((a, b) => {
+      const ax = getParentX(a.id), bx = getParentX(b.id);
+      if (ax != null && bx != null && Math.abs(ax - bx) > 1) return ax - bx;
+      if (ax != null && bx == null) return -1;  // known parent sorts first
+      if (ax == null && bx != null) return 1;
       const bo = (branchOrder[a.branch] ?? 3) - (branchOrder[b.branch] ?? 3);
       return bo !== 0 ? bo : a.name.localeCompare(b.name);
     });
 
-    // Build ordered list: when a char has a spouse in this gen, pull spouse adjacent
-    const charIds = new Set(chars.map(c => c.id));
+    // Pull spouses adjacent
     const ordered = [];
     const placed  = new Set();
     for (const c of sorted) {
@@ -209,14 +227,12 @@ function autoLayout(characters, relations) {
     }
 
     ordered.forEach((c, i) => {
-      positioned.push({
-        ...c,
-        x: Math.round((CANVAS_W / (ordered.length + 1)) * (i + 1)),
-        y,
-      });
+      const x = Math.round((CANVAS_W / (ordered.length + 1)) * (i + 1));
+      posById[c.id] = { x, y };
+      result.push({ ...c, x, y });
     });
   }
-  return positioned;
+  return result;
 }
 
 // ── SVG rendering ─────────────────────────────────────────────────────────────
