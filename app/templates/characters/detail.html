@@ -22,6 +22,9 @@
       </p>
       {% endif %}
       <h1 class="character-name">{{ character.name }}</h1>
+      {% if character.ipa %}
+      <p class="ipa-pronunciation lang-text-en">/{{ character.ipa }}/</p>
+      {% endif %}
       <p class="character-occupation">{{ character.occupation or '' }}</p>
 
       <!-- Description (EN/FR switchable) -->

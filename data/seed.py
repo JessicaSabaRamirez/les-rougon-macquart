@@ -11,6 +11,7 @@ Run with:  python data/seed.py
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
+from sqlalchemy import text
 from app.database import engine, init_db, SessionLocal
 from app.models import (
     Novel, Character, CharacterRelation,
@@ -18,8 +19,23 @@ from app.models import (
 )
 
 
+def _add_ipa_columns_if_missing():
+    """Add ipa column to characters and locations if not already present (schema migration)."""
+    with engine.connect() as conn:
+        for stmt in [
+            "ALTER TABLE characters ADD COLUMN ipa VARCHAR(255)",
+            "ALTER TABLE locations ADD COLUMN ipa VARCHAR(255)",
+        ]:
+            try:
+                conn.execute(text(stmt))
+                conn.commit()
+            except Exception:
+                pass  # column already exists
+
+
 def run():
     init_db()
+    _add_ipa_columns_if_missing()
     db = SessionLocal()
 
     # ── Wipe existing data (idempotent re-seed) ─────────────────────────────
@@ -964,8 +980,84 @@ def run():
         },
     ]
 
+    # ── CHARACTER IPA (French IPA, stored without surrounding slashes) ────────
+    _CHAR_IPA = {
+        "adelaide-fouque":        "a.de.la.id fuk",
+        "pierre-rougon":          "pjɛʁ ʁu.ɡɔ̃",
+        "felicite-rougon":        "fe.li.si.te ʁu.ɡɔ̃",
+        "ursule-macquart":        "yʁ.syl ma.kaʁ",
+        "antoine-macquart":       "ɑ̃.twan ma.kaʁ",
+        "josephine-macquart":     "ʒo.ze.fin ma.kaʁ",
+        "eugene-rougon":          "ø.ʒɛn ʁu.ɡɔ̃",
+        "aristide-saccard":       "a.ʁis.tid sa.kaʁ",
+        "pascal-rougon":          "dok.tœʁ pas.kal ʁu.ɡɔ̃",
+        "sidonie-rougon":         "si.dɔ.ni ʁu.ɡɔ̃",
+        "marthe-rougon":          "maʁt ʁu.ɡɔ̃",
+        "lisa-quenu":             "li.za kə.ny",
+        "gervaise-macquart":      "ʒɛʁ.vɛːz ma.kaʁ",
+        "jean-macquart":          "ʒɑ̃ ma.kaʁ",
+        "florent-quenu":          "flɔ.ʁɑ̃ kə.ny",
+        "francois-mouret":        "fʁɑ̃.swa mu.ʁɛ",
+        "helene-grandjean":       "e.lɛn ɡʁɑ̃.ʒɑ̃",
+        "silvere-mouret":         "sil.vɛʁ mu.ʁɛ",
+        "coupeau":                "ku.po",
+        "auguste-lantier":        "o.ɡyst lɑ̃.tje",
+        "quenu":                  "kə.ny",
+        "goujet":                 "ɡu.ʒɛ",
+        "virginie-poisson":       "viʁ.ʒi.ni pwa.sɔ̃",
+        "abbe-faujas":            "a.be fo.ʒa",
+        "roubaud":                "ʁu.bo",
+        "renee-saccard":          "ʁə.ne sa.kaʁ",
+        "clorinde-balbi":         "klɔ.ʁɛ̃d bal.bi",
+        "bonnemort":              "bɔn.mɔʁ",
+        "toussaint-maheu":        "tu.sɛ̃ ma.ø",
+        "la-maheude":             "la ma.øːd",
+        "hennebeau":              "mə.sjø ɛn.bo",
+        "deneulin":               "də.nø.lɛ̃",
+        "rasseneur":              "ʁas.nœʁ",
+        "nana":                   "na.na",
+        "etienne-lantier":        "e.tjɛn lɑ̃.tje",
+        "claude-lantier":         "klod lɑ̃.tje",
+        "jacques-lantier":        "ʒak lɑ̃.tje",
+        "octave-mouret":          "ɔk.tav mu.ʁɛ",
+        "serge-mouret":           "a.be sɛʁʒ mu.ʁɛ",
+        "maxime-saccard":         "mak.sim sa.kaʁ",
+        "pauline-quenu":          "po.lin kə.ny",
+        "angelique-rougon":       "ɑ̃.ʒe.lik",
+        "clotilde-rougon":        "klɔ.tild ʁu.ɡɔ̃",
+        "desiree-mouret":         "de.zi.ʁe mu.ʁɛ",
+        "denise-baudu":           "də.niz bo.dy",
+        "victor-saccard":         "vik.tɔʁ sa.kaʁ",
+        "miette":                 "mjɛt",
+        "albine":                 "al.bin",
+        "souvarine":              "su.va.ʁin",
+        "catherine-maheu":        "ka.tʁin ma.ø",
+        "chaval":                 "ʃa.val",
+        "jeanlin-maheu":          "ʒɑ̃.lɛ̃ ma.ø",
+        "christine-halleguen":    "kʁis.tin a.lɛ.ɡɛ̃",
+        "severine-roubaud":       "se.vʁin ʁu.bo",
+        "flore":                  "flɔʁ",
+        "lazare-chanteau":        "la.zaʁ ʃɑ̃.to",
+        "maurice-levasseur":      "mɔ.ʁis lə.va.sœʁ",
+        "caroline-hamelin":       "ka.ʁɔ.lin am.lɛ̃",
+        "hamelin":                "ʒɔʁʒ am.lɛ̃",
+        "jeanne-grandjean":       "ʒan ɡʁɑ̃.ʒɑ̃",
+        "dr-deberle":             "dok.tœʁ ɑ̃.ʁi də.bɛʁl",
+        "felicien-de-hautecoeur": "fe.li.sjɛ̃ də ot.kœʁ",
+        "pere-fouan":             "pɛʁ fwɑ̃",
+        "buteau":                 "by.to",
+        "francoise-fouan":        "fʁɑ̃.swaz",
+        "count-muffat":           "kɔ̃t my.fa də bø.vil",
+        "fontan":                 "fɔ̃.tɑ̃",
+        "sandoz":                 "pjɛʁ sɑ̃.doz",
+        "frere-archangias":       "fʁɛʁ aʁ.kɑ̃.ʒja",
+        "la-normande":            "la nɔʁ.mɑ̃d",
+        "bourdoncle":             "buʁ.dɔ̃.klə",
+    }
+
     chars = {}
     for c_data in chars_data:
+        c_data["ipa"] = _CHAR_IPA.get(c_data["slug"])
         c = Character(
             slug=c_data["slug"],
             name=c_data["name"],
@@ -978,6 +1070,7 @@ def run():
             physical_en=c_data.get("physical_en"),
             image_url=c_data.get("image_url"),
             image_credit=c_data.get("image_credit"),
+            ipa=c_data.get("ipa"),
             featured_on_landing=c_data.get("featured_on_landing", False),
             tree_x=c_data.get("tree_x"),
             tree_y=c_data.get("tree_y"),
@@ -1376,11 +1469,32 @@ def run():
          True, 43.50, 5.30),
     ]
 
+    _LOC_IPA = {
+        "paris":                     "pa.ʁi",
+        "plassans":                  "pla.sɑ̃s",
+        "montsou":                   "mɔ̃.su",
+        "les-halles":                "le zal",
+        "la-goutte-dor":             "la ɡut dɔʁ",
+        "le-paradou":                "lə pa.ʁa.du",
+        "voreux-mine":               "lə vɔ.ʁø",
+        "au-bonheur-des-dames-store":"o bɔ.nœʁ de dam",
+        "la-bete-humaine-railway":   "la liɲ pa.ʁi lə avʁ",
+        "beauce":                    "la boːs",
+        "parc-monceau":              "paʁk mɔ̃.so",
+        "sedan":                     "sə.dɑ̃",
+        "la-souleiade":              "la su.ljad",
+        "bonneville":                "bɔn.vil",
+        "bourse-de-paris":           "la buʁs",
+        "les-artaud":                "le zaʁ.to",
+        "les-tulettes":              "le ty.lɛt",
+    }
+
     for row in locations_data:
         db.add(Location(
             slug=row[0], name=row[1], location_type=row[2],
             description_en=row[3], description_fr=row[4],
-            featured=row[5], latitude=row[6], longitude=row[7]
+            featured=row[5], latitude=row[6], longitude=row[7],
+            ipa=_LOC_IPA.get(row[0])
         ))
 
     # ── EVENTS ───────────────────────────────────────────────────────────────

@@ -11,7 +11,10 @@
       <p style="font-family:var(--font-sc);font-size:.8rem;letter-spacing:.15em;color:var(--gold);">
         {{ location.location_type or '' }}
       </p>
-      <h1 class="page-title" style="margin-bottom:1.2rem;">{{ location.name }}</h1>
+      <h1 class="page-title" style="margin-bottom:0.2rem;">{{ location.name }}</h1>
+      {% if location.ipa %}
+      <p class="ipa-pronunciation lang-text-en" style="margin-bottom:1rem;">/{{ location.ipa }}/</p>
+      {% endif %}
       <div style="font-size:1rem;line-height:1.75;">
         <span class="lang-text-en">{{ location.description_en or '' }}</span>
         <span class="lang-text-fr" hidden>{{ location.description_fr or location.description_en or '' }}</span>

@@ -75,6 +75,7 @@ class Character(Base):
     physical_fr         = Column(Text)
     image_url           = Column(String(255))               # Wikimedia or local
     image_credit        = Column(String(255))
+    ipa                 = Column(String(255))               # French IPA pronunciation
     # Family tree positioning hint (for the SVG layout engine)
     tree_x              = Column(Float)
     tree_y              = Column(Float)
@@ -123,6 +124,7 @@ class Location(Base):
     description_en = Column(Text)
     description_fr = Column(Text)
     image_url      = Column(String(255))
+    ipa            = Column(String(255))               # French IPA pronunciation
     latitude       = Column(Float)
     longitude      = Column(Float)
     featured       = Column(Boolean, default=False)

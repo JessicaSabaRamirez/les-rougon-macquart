@@ -260,6 +260,14 @@ a:hover { color: var(--rougon-light); }
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   line-height: 1.1; margin-bottom: 0.3rem;
 }
+.ipa-pronunciation {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--ink-light);
+  margin-top: 0.1rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+}
 .character-occupation {
   font-family: var(--font-sc); font-size: 0.85rem;
   letter-spacing: 0.1em; color: var(--gold);
