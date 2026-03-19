@@ -152,6 +152,17 @@ a:hover { color: var(--rougon-light); }
 .search-result-sub { font-size: 0.8rem; font-style: italic; color: var(--ink-faded); }
 
 /* Language toggle */
+.ipa-toggle-btn {
+  border: 1px solid var(--gold-light); border-radius: var(--radius);
+  background: transparent; padding: 0.28rem 0.65rem; cursor: pointer;
+  font-family: var(--font-sc); font-size: 0.75rem; letter-spacing: 0.1em;
+  color: var(--ink-faded); transition: all var(--transition);
+}
+.ipa-toggle-btn.active, .ipa-toggle-btn:hover { background: var(--gold); color: white; border-color: var(--gold); }
+
+/* IPA hidden unless toggled on */
+html:not([data-ipa="on"]) .ipa-pronunciation { display: none; }
+
 .lang-toggle {
   display: flex; border: 1px solid var(--gold-light);
   border-radius: var(--radius); overflow: hidden;

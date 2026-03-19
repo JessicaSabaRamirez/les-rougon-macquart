@@ -35,6 +35,29 @@ function setLang(lang) {
 })();
 
 
+/* ── IPA toggle ──────────────────────────────────────────────────────────── */
+const IPA_KEY = 'rm_ipa';
+
+function setIPA(val) {
+  document.documentElement.setAttribute('data-ipa', val);
+  localStorage.setItem(IPA_KEY, val);
+  const btn = document.getElementById('ipaToggle');
+  if (btn) {
+    btn.classList.toggle('active', val === 'on');
+    btn.setAttribute('aria-pressed', val === 'on');
+  }
+}
+
+function toggleIPA() {
+  setIPA(document.documentElement.getAttribute('data-ipa') === 'on' ? 'off' : 'on');
+}
+
+// Default: off
+(function initIPA() {
+  setIPA(localStorage.getItem(IPA_KEY) || 'off');
+})();
+
+
 /* ── Live search ─────────────────────────────────────────────────────────── */
 const searchInput = document.getElementById('globalSearch');
 const searchDropdown = document.getElementById('searchDropdown');
